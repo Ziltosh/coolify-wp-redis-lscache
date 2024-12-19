@@ -3,15 +3,14 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: 'wordpress:fpm'
+        #image: 'wordpress:fpm'
         volumes:
             - 'wordpress-files:/var/www/html'
         environment:
             - WORDPRESS_DB_HOST=mariadb
-            - WORDPRESS_DB_USER=$SERVICE_USER_WORDPRESS
-            - WORDPRESS_DB_PASSWORD=$SERVICE_PASSWORD_WORDPRESS
+            - WORDPRESS_DB_USER=$DB_USER
+            - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
             - WORDPRESS_DB_NAME=wordpress
-            - WP_DEBUG=true
         depends_on:
             mariadb:
                 condition: service_healthy
@@ -26,8 +25,8 @@ services:
         environment:
             - SERVICE_FQDN_LITESPEED
             - WORDPRESS_DB_HOST=mariadb
-            - WORDPRESS_DB_USER=$SERVICE_USER_WORDPRESS
-            - WORDPRESS_DB_PASSWORD=$SERVICE_PASSWORD_WORDPRESS
+            - WORDPRESS_DB_USER=$DB_USER
+            - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
             - WORDPRESS_DB_NAME=wordpress
         volumes:
             - 'wordpress-files:/var/www/vhosts/localhost/html'
@@ -55,10 +54,10 @@ services:
         volumes:
             - 'mariadb-data:/var/lib/mysql'
         environment:
-            - MYSQL_ROOT_PASSWORD=$SERVICE_PASSWORD_ROOT
+            - MYSQL_ROOT_PASSWORD=$DB_ROOT_PASSWORD
             - MYSQL_DATABASE=wordpress
-            - MYSQL_USER=$SERVICE_USER_DB
-            - MYSQL_PASSWORD=$SERVICE_PASSWORD_DB
+            - MYSQL_USER=$DB_USER
+            - MYSQL_PASSWORD=$DB_PASSWORD
         healthcheck:
             test:
                 - CMD

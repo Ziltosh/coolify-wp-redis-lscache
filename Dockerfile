@@ -20,10 +20,10 @@ RUN { \
     echo 'post_max_size = 64M'; \
     echo 'max_execution_time = 300'; \
     echo 'max_input_vars = 3000'; \
-    echo 'opcache.enable=1'; \
-    echo 'opcache.memory_consumption=128'; \
-    echo 'opcache.interned_strings_buffer=8'; \
-    echo 'opcache.max_accelerated_files=4000'; \
-    echo 'opcache.revalidate_freq=2'; \
-    echo 'opcache.fast_shutdown=1'; \
+    # echo 'opcache.enable=1'; \
+    # echo 'opcache.memory_consumption=128'; \
+    # echo 'opcache.interned_strings_buffer=8'; \
+    # echo 'opcache.max_accelerated_files=4000'; \
+    # echo 'opcache.revalidate_freq=2'; \
+    # echo 'opcache.fast_shutdown=1'; \
 } > /usr/local/etc/php/conf.d/wordpress-performance.ini
