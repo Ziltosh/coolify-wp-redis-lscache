@@ -7,10 +7,10 @@ services:
         volumes:
             - 'wordpress-files:/var/www/html'
         environment:
-            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-            - WORDPRESS_DB_USER=$DB_USER
-            - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
-            - WORDPRESS_DB_NAME=wordpress
+            - WORDPRESS_DB_HOST=mariadb
+            - WORDPRESS_DB_USER=${SERVICE_USER_WORDPRESS:-user}
+            - WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_WORDPRESS:-password}
+            - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-wordpress}
         depends_on:
             mariadb:
                 condition: service_healthy
@@ -24,10 +24,10 @@ services:
             - 443
         environment:
             - SERVICE_FQDN_LITESPEED
-            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-            - WORDPRESS_DB_USER=$DB_USER
-            - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
-            - WORDPRESS_DB_NAME=wordpress
+            - WORDPRESS_DB_HOST=mariadb
+            - WORDPRESS_DB_USER=${SERVICE_USER_WORDPRESS:-user}
+            - WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_WORDPRESS:-password}
+            - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-wordpress}
         volumes:
             - 'wordpress-files:/var/www/vhosts/localhost/html'
         depends_on:
