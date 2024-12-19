@@ -7,7 +7,7 @@ services:
         volumes:
             - 'wordpress-files:/var/www/html'
         environment:
-            - WORDPRESS_DB_HOST=mariadb
+            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
             - WORDPRESS_DB_USER=$DB_USER
             - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
             - WORDPRESS_DB_NAME=wordpress
@@ -24,7 +24,7 @@ services:
             - 443
         environment:
             - SERVICE_FQDN_LITESPEED
-            - WORDPRESS_DB_HOST=mariadb
+            - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
             - WORDPRESS_DB_USER=$DB_USER
             - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
             - WORDPRESS_DB_NAME=wordpress
