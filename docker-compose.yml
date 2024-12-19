@@ -47,8 +47,6 @@ services:
     redis:
         image: 'redis:latest'
         restart: 'always'
-        networks:
-            - wordpress_network
         healthcheck:
             test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
             interval: 10s
@@ -62,8 +60,8 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=$SERVICE_PASSWORD_ROOT
             - MYSQL_DATABASE=wordpress
-            - MYSQL_USER=$SERVICE_USER_WORDPRESS
-            - MYSQL_PASSWORD=$SERVICE_PASSWORD_WORDPRESS
+            - MYSQL_USER=$SERVICE_USER_DB
+            - MYSQL_PASSWORD=$SERVICE_PASSWORD_DB
         healthcheck:
             test:
                 - CMD
@@ -73,13 +71,3 @@ services:
             interval: 5s
             timeout: 20s
             retries: 10
-        networks:
-            - wordpress_network
-
-volumes:
-    wordpress-files:
-    mariadb-data:
-
-networks:
-    wordpress_network:
-        driver: bridge
