@@ -54,10 +54,10 @@ services:
         volumes:
             - 'mariadb-data:/var/lib/mysql'
         environment:
-            - MYSQL_ROOT_PASSWORD=$DB_ROOT_PASSWORD
-            - MYSQL_DATABASE=wordpress
-            - MYSQL_USER=$DB_USER
-            - MYSQL_PASSWORD=$DB_PASSWORD
+            - MARIADB_ROOT_PASSWORD=${SERVICE_PASSWORD_MARIADB}
+            - MARIADB_DATABASE=wordpress
+            - MARIADB_USER=${SERVICE_USER_MARIADB:-user}
+            - MARIADB_PASSWORD=${SERVICE_PASSWORD_MARIADB:-password}
         healthcheck:
             test:
                 - CMD
