@@ -16,8 +16,6 @@ services:
                 condition: service_healthy
             # litespeed:
             #     condition: service_healthy
-        networks:
-            - wordpress_network
 
     litespeed:
         image: litespeedtech/openlitespeed
@@ -41,8 +39,6 @@ services:
         #     timeout: 10s
         #     retries: 10
         restart: always
-        networks:
-            - wordpress_network
 
     redis:
         image: 'redis:latest'
