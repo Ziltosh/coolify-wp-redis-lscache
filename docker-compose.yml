@@ -8,8 +8,8 @@ services:
             - 'wordpress-files:/var/www/html'
         environment:
             - WORDPRESS_DB_HOST=mariadb
-            - WORDPRESS_DB_USER=$SERVICE_USER_WORDPRESS
-            - WORDPRESS_DB_PASSWORD=$SERVICE_PASSWORD_WORDPRESS
+            - WORDPRESS_DB_USER=${SERVICE_USER_WORDPRESS}
+            - WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_WORDPRESS}
             - WORDPRESS_DB_NAME=wordpress
         depends_on:
             mariadb:
@@ -25,8 +25,8 @@ services:
         environment:
             - SERVICE_FQDN_WORDPRESS
             - WORDPRESS_DB_HOST=mariadb
-            - WORDPRESS_DB_USER=$SERVICE_USER_WORDPRESS
-            - WORDPRESS_DB_PASSWORD=$SERVICE_PASSWORD_WORDPRESS
+            - WORDPRESS_DB_USER=${SERVICE_USER_WORDPRESS}
+            - WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_WORDPRESS}
             - WORDPRESS_DB_NAME=wordpress
         volumes:
             - 'wordpress-files:/var/www/vhosts/localhost/html'
@@ -54,10 +54,10 @@ services:
         volumes:
             - 'mariadb-data:/var/lib/mysql'
         environment:
-            - MYSQL_ROOT_PASSWORD=$SERVICE_PASSWORD_ROOT
+            - MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_ROOT}
             - MYSQL_DATABASE=wordpress
-            - MYSQL_USER=$SERVICE_USER_DB
-            - MYSQL_PASSWORD=$SERVICE_PASSWORD_DB
+            - MYSQL_USER=${SERVICE_USER_DB}
+            - MYSQL_PASSWORD=${SERVICE_PASSWORD_DB}
         healthcheck:
             test:
                 - CMD
