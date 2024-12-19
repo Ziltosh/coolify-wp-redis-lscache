@@ -26,6 +26,10 @@ services:
             - 443
         environment:
             - SERVICE_FQDN_WORDPRESS
+            - WORDPRESS_DB_HOST=mariadb
+            - WORDPRESS_DB_USER=$SERVICE_USER_WORDPRESS
+            - WORDPRESS_DB_PASSWORD=$SERVICE_PASSWORD_WORDPRESS
+            - WORDPRESS_DB_NAME=wordpress
         volumes:
             - 'wordpress-files:/var/www/vhosts/localhost/html'
         depends_on:
