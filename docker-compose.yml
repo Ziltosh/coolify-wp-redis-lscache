@@ -23,6 +23,9 @@ services:
 
     litespeed:
         image: litespeedtech/openlitespeed
+        ports:
+            - 80
+            - 443
         environment:
             - SERVICE_FQDN_WORDPRESS
         volumes:
