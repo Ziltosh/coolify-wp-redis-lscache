@@ -16,8 +16,8 @@ services:
         depends_on:
             mariadb:
                 condition: service_healthy
-            litespeed:
-                condition: service_healthy
+            # litespeed:
+            #     condition: service_healthy
         networks:
             - wordpress_network
 
@@ -33,11 +33,11 @@ services:
         depends_on:
             mariadb:
                 condition: service_healthy
-        healthcheck:
-            test: ['CMD', 'curl', '-f', 'http://localhost:80']
-            interval: 2s
-            timeout: 10s
-            retries: 10
+        # healthcheck:
+        #     test: ['CMD', 'curl', '-f', 'http://localhost:80']
+        #     interval: 2s
+        #     timeout: 10s
+        #     retries: 10
         restart: always
         networks:
             - wordpress_network
