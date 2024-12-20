@@ -14,14 +14,11 @@ services:
         depends_on:
             mariadb:
                 condition: service_healthy
-            # litespeed:
-            #     condition: service_healthy
+            litespeed:
+                condition: service_healthy
 
     litespeed:
         image: litespeedtech/openlitespeed
-        ports:
-            - 80
-            - 443
         environment:
             - SERVICE_FQDN_LITESPEED
             - WORDPRESS_DB_HOST=mariadb
@@ -33,11 +30,11 @@ services:
         depends_on:
             mariadb:
                 condition: service_healthy
-        # healthcheck:
-        #     test: ['CMD', 'curl', '-f', 'http://localhost:80']
-        #     interval: 2s
-        #     timeout: 10s
-        #     retries: 10
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://127.0.0.1:80']
+            interval: 2s
+            timeout: 10s
+            retries: 10
         restart: always
 
     redis:
@@ -54,10 +51,10 @@ services:
         volumes:
             - 'mariadb-data:/var/lib/mysql'
         environment:
-            - 'MARIADB_ROOT_PASSWORD=${SERVICE_PASSWORD_MARIADB}'
-            - 'MARIADB_DATABASE=${WORDPRESS_DB_NAME}'
-            - 'MARIADB_USER=${SERVICE_USER_MARIADB}'
-            - 'MARIADB_PASSWORD=${SERVICE_PASSWORD_MARIADB}'
+            - 'MARIADB_ROOT_PASSWORD=$SERVICE_PASSWORD_MARIADB'
+            - 'MARIADB_DATABASE=$WORDPRESS_DB_NAME'
+            - 'MARIADB_USER=$SERVICE_USER_MARIADB'
+            - 'MARIADB_PASSWORD=$SERVICE_PASSWORD_MARIADB'
         healthcheck:
             test:
                 - CMD
