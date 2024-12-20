@@ -28,6 +28,16 @@ services:
         environment:
             TZ: ${TZ:-Europe/Paris}
 
+    wordpress:
+        image: wordpress:fpm
+        volumes:
+            - wordpress-files:/var/www/vhosts/localhost/html
+        environment:
+            WORDPRESS_DB_HOST: mysql
+            WORDPRESS_DB_USER: ${SERVICE_USER_WORDPRESS:-user}
+            WORDPRESS_DB_PASSWORD: ${SERVICE_PASSWORD_WORDPRESS:-password}
+            WORDPRESS_DB_NAME: wordpress
+
     redis:
         image: 'redis:latest'
         restart: 'always'
