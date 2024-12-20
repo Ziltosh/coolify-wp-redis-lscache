@@ -14,8 +14,8 @@ services:
         depends_on:
             mariadb:
                 condition: service_healthy
-            litespeed:
-                condition: service_healthy
+            # litespeed:
+            #     condition: service_healthy
 
     litespeed:
         image: litespeedtech/openlitespeed
@@ -33,12 +33,12 @@ services:
         ports:
             - 80
             - 443
-        healthcheck:
-            test: ['CMD', 'curl', '-f', 'http://127.0.0.1:80']
-            interval: 2s
-            timeout: 10s
-            retries: 10
-        restart: always
+        # healthcheck:
+        #     test: ['CMD', 'curl', '-f', 'http://localhost']
+        #     interval: 2s
+        #     timeout: 10s
+        #     retries: 10
+        # restart: always
 
     redis:
         image: 'redis:latest'
