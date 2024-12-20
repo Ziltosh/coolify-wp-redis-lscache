@@ -3,6 +3,8 @@ ARG PHP_VERSION=lsphp82
 
 FROM litespeedtech/openlitespeed:${OLS_VERSION}-${PHP_VERSION}
 
+COPY --from=litespeedtech/openlitespeed:${OLS_VERSION}-${PHP_VERSION} /usr/local/bin/ /usr/local/bin/
+
 RUN bash /usr/local/bin/demosite.sh
 RUN bash /usr/local/bin/database.sh --domain FQDN_LITESPEED --user USER_WORDPRESS --password PASSWORD_WORDPRESS --database wordpress
 RUN bash /usr/local/bin/appinstall.sh --app wordpress --domain FQDN_LITESPEED
