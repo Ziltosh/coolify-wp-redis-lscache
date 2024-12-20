@@ -30,6 +30,9 @@ services:
         depends_on:
             mariadb:
                 condition: service_healthy
+        ports:
+            - 80
+            - 443
         healthcheck:
             test: ['CMD', 'curl', '-f', 'http://127.0.0.1:80']
             interval: 2s
@@ -40,6 +43,8 @@ services:
     redis:
         image: 'redis:latest'
         restart: 'always'
+        ports:
+            - 6379
         healthcheck:
             test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
             interval: 10s
@@ -48,13 +53,15 @@ services:
 
     mariadb:
         image: 'mariadb:11'
+        ports:
+            - 3306
         volumes:
             - 'mariadb-data:/var/lib/mysql'
         environment:
-            - 'MARIADB_ROOT_PASSWORD=$SERVICE_PASSWORD_MARIADB'
-            - 'MARIADB_DATABASE=$WORDPRESS_DB_NAME'
-            - 'MARIADB_USER=$SERVICE_USER_MARIADB'
-            - 'MARIADB_PASSWORD=$SERVICE_PASSWORD_MARIADB'
+            - 'MARIADB_ROOT_PASSWORD=${SERVICE_PASSWORD_MARIADB:-passworddb}'
+            - 'MARIADB_DATABASE=${WORDPRESS_DB_NAME:-wordpress}'
+            - 'MARIADB_USER=${SERVICE_USER_MARIADB:-userdb}'
+            - 'MARIADB_PASSWORD=${SERVICE_PASSWORD_MARIADB:-passworddb}'
         healthcheck:
             test:
                 - CMD
