@@ -10,6 +10,8 @@ ARG SERVICE_FQDN_LITESPEED
 
 WORKDIR /var/www/vhosts/localhost/html
 
+RUN apt-get update && apt-get install -y curl
+
 # # Installation du script docker-php-extension-installer
 # ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
