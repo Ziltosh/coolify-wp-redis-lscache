@@ -1,27 +1,13 @@
 services:
-    wordpress:
+    litespeed:
         build:
             context: .
             dockerfile: Dockerfile
-        #image: 'wordpress:fpm'
-        volumes:
-            - 'wordpress-files:/var/www/html'
-        environment:
-            - WORDPRESS_DB_HOST=mariadb
-            - 'WORDPRESS_DB_USER=${SERVICE_USER_WORDPRESS:-user}'
-            - 'WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_WORDPRESS:-password}'
-            - 'WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-wordpress}'
-        depends_on:
-            mariadb:
-                condition: service_healthy
-            # litespeed:
-            #     condition: service_healthy
-
-    litespeed:
         image: litespeedtech/openlitespeed
         environment:
             - SERVICE_FQDN_LITESPEED
             - WORDPRESS_DB_HOST=mariadb
+            - 'DB_HOST=mariadb'
             - 'WORDPRESS_DB_USER=${SERVICE_USER_WORDPRESS:-user}'
             - 'WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_WORDPRESS:-password}'
             - 'WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-wordpress}'
