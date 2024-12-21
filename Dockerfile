@@ -1,16 +1,26 @@
 ARG OLS_VERSION=1.8.2
-ARG PHP_VERSION=lsphp82
+ARG PHP_VERSION=lsphp83
 
 FROM litespeedtech/openlitespeed:${OLS_VERSION}-${PHP_VERSION} as litespeed
 
-RUN apt update && apt install -y git curl
+FROM wordpress:fpm as wordpress
 
-RUN cd /tmp
+FROM litespeedtech/openlitespeed:${OLS_VERSION}-${PHP_VERSION}
 
-RUN git clone https://github.com/litespeedtech/ols-docker-env.git
+ENV WORDPRESS_DB_HOST=mysql \
+    WORDPRESS_DB_USER=wordpress \
+    WORDPRESS_DB_PASSWORD=wordpress_password \
+    WORDPRESS_DB_NAME=wordpress \
+    WORDPRESS_TABLE_PREFIX=wp_
 
-RUN cp -r ols-docker-env/bin/* /usr/local/bin && bash /usr/local/bin/database.sh --domain FQDN_LITESPEED --user USER_WORDPRESS --password PASSWORD_WORDPRESS --database wordpress && bash /usr/local/bin/appinstall.sh --app wordpress --domain FQDN_LITESPEED
+COPY --from=wordpress /var/www/html/ /var/www/vhosts/localhost/html/
 
-# RUN bash /usr/local/bin/demosite.sh
-# RUN bash /usr/local/bin/database.sh --domain FQDN_LITESPEED --user USER_WORDPRESS --password PASSWORD_WORDPRESS --database wordpress
-# RUN bash /usr/local/bin/appinstall.sh --app wordpress --domain FQDN_LITESPEED
+RUN chown -R nobody:nogroup /var/www/vhosts/localhost/html/ && \
+    chmod -R 755 /var/www/vhosts/localhost/html/
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["/usr/local/lsws/bin/lswsctrl", "start"]
+
