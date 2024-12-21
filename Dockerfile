@@ -9,8 +9,8 @@ RUN cd /tmp
 
 RUN git clone https://github.com/litespeedtech/ols-docker-env.git
 
-RUN cp -r ols-docker-env/bin/* /usr/local/bin
+RUN cp -r ols-docker-env/bin/* /usr/local/bin && bash /usr/local/bin/database.sh --domain FQDN_LITESPEED --user USER_WORDPRESS --password PASSWORD_WORDPRESS --database wordpress && bash /usr/local/bin/appinstall.sh --app wordpress --domain FQDN_LITESPEED
 
-RUN bash /usr/local/bin/demosite.sh
-RUN bash /usr/local/bin/database.sh --domain FQDN_LITESPEED --user USER_WORDPRESS --password PASSWORD_WORDPRESS --database wordpress
-RUN bash /usr/local/bin/appinstall.sh --app wordpress --domain FQDN_LITESPEED
+# RUN bash /usr/local/bin/demosite.sh
+# RUN bash /usr/local/bin/database.sh --domain FQDN_LITESPEED --user USER_WORDPRESS --password PASSWORD_WORDPRESS --database wordpress
+# RUN bash /usr/local/bin/appinstall.sh --app wordpress --domain FQDN_LITESPEED
