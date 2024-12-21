@@ -22,6 +22,11 @@ services:
                 SERVICE_FQDN_LITESPEED: ${SERVICE_FQDN_LITESPEED:-localhost}
                 SERVICE_USER_WORDPRESS: ${SERVICE_USER_WORDPRESS:-user}
                 SERVICE_PASSWORD_WORDPRESS: ${SERVICE_PASSWORD_WORDPRESS:-password}
+                WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-mysql}
+                WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wordpress}
+                WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress_password}
+                WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
+                WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-wp_}
         volumes:
             - /mnt/d/www:/var/www/vhosts/localhost/html
         ports:
