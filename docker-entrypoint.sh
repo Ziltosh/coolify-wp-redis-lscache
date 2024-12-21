@@ -1,6 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 
+# Fonction pour installer WordPress
+install_wordpress() {
+    # Vérification si WordPress est déjà installé
+    if [ ! -f /var/www/vhosts/localhost/html/wp-config.php ]; then
+        # Téléchargement et installation de WordPress
+        curl -O https://wordpress.org/latest.zip
+        unzip latest.zip
+        rm latest.zip
+        mv wordpress/* .
+        rm -rf wordpress
+    fi
+}
+
 # Fonction pour remplacer les valeurs dans wp-config.php
 setup_wp_config() {
     # Attente que le fichier wp-config.php soit disponible
@@ -17,6 +30,9 @@ setup_wp_config() {
     # Configuration du préfixe des tables
     sed -i "s/\$table_prefix = 'wp_';/\$table_prefix = '${WORDPRESS_TABLE_PREFIX}';/" /var/www/vhosts/localhost/html/wp-config.php
 }
+
+# Installation de WordPress
+install_wordpress
 
 # Configuration de WordPress
 setup_wp_config

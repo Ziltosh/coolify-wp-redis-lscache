@@ -11,14 +11,9 @@ FROM litespeedtech/openlitespeed:${OLS_VERSION}-${PHP_VERSION} as litespeed
 WORKDIR /var/www/vhosts/localhost/html
 
 RUN apt update && apt install -y git curl unzip
-RUN curl -O https://wordpress.org/latest.zip
-RUN unzip latest.zip
-RUN rm latest.zip
-RUN mv wordpress/* .
-RUN rm -rf wordpress
 
-RUN chown -R nobody:nogroup /var/www/vhosts/localhost/html/ && \
-    chmod -R 755 /var/www/vhosts/localhost/html/
+# RUN chown -R nobody:nogroup /var/www/vhosts/localhost/html/ && \
+#     chmod -R 755 /var/www/vhosts/localhost/html/
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
