@@ -22,7 +22,7 @@ install_wp_cli() {
 }
 
 install_plugin() {
-    wp install litespeed-cache --activate --allow-root
+    wp plugin install litespeed-cache --activate --allow-root
 }
 
 # Fonction pour remplacer les valeurs dans wp-config.php
