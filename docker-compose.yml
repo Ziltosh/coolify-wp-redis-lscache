@@ -7,10 +7,10 @@ services:
         volumes:
             - mysql-data:/var/lib/mysql:delegated
         environment:
-            - MYSQL_ROOT_PASSWORD= ${SERVICE_PASSWORD_MYSQLROOT:-root}
-            - MYSQL_DATABASE=wordpress
-            - MYSQL_USER=${SERVICE_USER_DB:-user}
-            - MYSQL_PASSWORD=${SERVICE_PASSWORD_DB:-password}
+            - 'MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT:-root}'
+            - 'MYSQL_DATABASE=wordpress'
+            - 'MYSQL_USER=${SERVICE_USER_DB:-user}'
+            - 'MYSQL_PASSWORD=${SERVICE_PASSWORD_DB:-password}'
 
     litespeed:
         build:
@@ -24,12 +24,12 @@ services:
                 WORDPRESS_DB_PASSWORD: ${SERVICE_PASSWORD_DB:-password}
                 WORDPRESS_DB_NAME: wordpress
         environment:
-            - SERVICE_FQDN_LITESPEED
-            - WORDPRESS_DB_HOST= ${WORDPRESS_DB_HOST:-mysql}
-            - WORDPRESS_DB_USER= ${SERVICE_USER_DB:-user}
-            - WORDPRESS_DB_PASSWORD= ${SERVICE_PASSWORD_DB:-password}
-            - WORDPRESS_DB_NAME= wordpress
-            - TZ= ${TZ:-Europe/Paris}
+            - 'SERVICE_FQDN_LITESPEED'
+            - 'WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST:-mysql}'
+            - 'WORDPRESS_DB_USER=${SERVICE_USER_DB:-user}'
+            - 'WORDPRESS_DB_PASSWORD=${SERVICE_PASSWORD_DB:-password}'
+            - 'WORDPRESS_DB_NAME=wordpress'
+            - 'TZ=${TZ:-Europe/Paris}'
         volumes:
             - /mnt/d/www:/var/www/vhosts/localhost/html
         ports:
