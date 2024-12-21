@@ -51,3 +51,6 @@ setup_wp_config
 
 # Exécution de la commande fournie
 exec "$@" 
+
+# Lancement de OpenLiteSpeed
+/usr/local/lsws/bin/lswsctrl start  
