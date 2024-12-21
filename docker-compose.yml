@@ -28,15 +28,14 @@ services:
                 WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
                 WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-wp_}
         environment:
-            - SERVICE_FQDN_LITESPEED
+            SERVICE_FQDN_LITESPEED: ${SERVICE_FQDN_LITESPEED:-localhost}
+            TZ: ${TZ:-Europe/Paris}
         volumes:
             - /mnt/d/www:/var/www/vhosts/localhost/html
         ports:
-            - 80
-            - 443
-            - 443/udp
-        environment:
-            TZ: ${TZ:-Europe/Paris}
+            - '80:80'
+            - '443:443'
+            - '443:443/udp'
 
     redis:
         image: 'redis:latest'

@@ -18,4 +18,5 @@ RUN apt update && apt install -y git curl unzip
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-CMD ["bash", "/usr/local/bin/docker-entrypoint.sh"]
+# Démarrer LiteSpeed en tant que processus principal
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
