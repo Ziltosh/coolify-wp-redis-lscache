@@ -14,6 +14,17 @@ install_wordpress() {
     fi
 }
 
+# Fonction pour installer wp-cli
+install_wp_cli() {
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    chmod +x wp-cli.phar
+    mv wp-cli.phar /usr/local/bin/wp
+}
+
+install_plugin() {
+    wp install litespeed-cache --activate
+}
+
 # Fonction pour remplacer les valeurs dans wp-config.php
 setup_wp_config() {
     # Attente que le fichier wp-config.php soit disponible
@@ -48,6 +59,12 @@ install_wordpress
 
 # Configuration de WordPress
 setup_wp_config
+
+# Installation WP-CLI
+install_wp_cli
+
+# Installation plugin
+install_plugin
 
 # Exécution de la commande fournie
 exec "$@" 
